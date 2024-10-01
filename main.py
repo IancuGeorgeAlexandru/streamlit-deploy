@@ -25,28 +25,31 @@ name, authentication_status, username = authenticator.login(location='main')
 # Authenticate users
 if st.session_state['authentication_status']:
     authenticator.logout("Logout", 'main', key='unique_key')
-    st.write(f'Welcome {st.session_state["name"]}')
-    st.title("Some content")
+    st.header(f'Welcome {st.session_state["name"]}')
+    
+    # cols = st.columns([10, 10, 10, 3])
+    # with cols[0]:
+    #     resetPassword = st.button("Reset Password")
+    # with cols[1]:
+    #     addUser = st.button("Add User")
 
-    reset_button = st.button("Reset Password!")
-    add_user = st.button("Add user!")
-
-    if reset_button:
-        if authentication_status:
+    if authentication_status == True:
             try:
-                if authenticator.reset_password(username, location = 'main'):
+                if authenticator.reset_password(username, location = 'sidebar'):
                     st.success('Password modified successfully')
                     with open('config.yaml', 'w') as file:
                         yaml.dump(config, file, default_flow_style=False)
-                        st.stop()
+                        # st.write(file.name)
             except Exception as e:
                 st.error(e)
 
-    if add_user:
-        if authentication_status:
+    if authentication_status == True and username=="georgei":
             try:
-                if authenticator.register_user():
+                if authenticator.register_user(pre_authorization=False):
+                    with open('config.yaml', 'w') as file:
+                        yaml.dump(config, file, default_flow_style=False)
                     st.success('User registered successfully')
+
             except Exception as e:
                 st.error(e)
         

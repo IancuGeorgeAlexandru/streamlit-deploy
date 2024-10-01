@@ -4,7 +4,15 @@ cookie:
   name: cookie_name
 credentials:
   usernames:
-      georgei:
-        email: georgeiancu749@yahoo.com
-        name: George Iancu
-        password: $2b$12$jW7RB.Ho2MsDnpQ4Sk05iezlUw.WYcRFkruO8YNThqEnWVuhvVodq
+    andy:
+      email: andy@yahoo.com
+      failed_login_attempts: 0
+      logged_in: true
+      name: andy
+      password: $2b$12$YAYa9i1u1SKe.Y2FvbFp5u7IbJrDVbCMad6zb332XbiRP/JxiGZeW
+    georgei:
+      email: georgeiancu749@yahoo.com
+      failed_login_attempts: 0
+      logged_in: true
+      name: George Iancu
+      password: $2b$12$JVqlzEitu9n1OPzGXLkjoOzwEVoCenDgzc2cK2TwIb4SD5uvlQgba
