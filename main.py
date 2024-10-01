@@ -27,6 +27,29 @@ if st.session_state['authentication_status']:
     authenticator.logout("Logout", 'main', key='unique_key')
     st.write(f'Welcome {st.session_state["name"]}')
     st.title("Some content")
+
+    reset_button = st.button("Reset Password!")
+    add_user = st.button("Add user!")
+
+    if reset_button:
+        if authentication_status:
+            try:
+                if authenticator.reset_password(username, location = 'main'):
+                    st.success('Password modified successfully')
+                    with open('config.yaml', 'w') as file:
+                        yaml.dump(config, file, default_flow_style=False)
+                        st.stop()
+            except Exception as e:
+                st.error(e)
+
+    if add_user:
+        if authentication_status:
+            try:
+                if authenticator.register_user():
+                    st.success('User registered successfully')
+            except Exception as e:
+                st.error(e)
+        
 elif st.session_state['authentication_status'] is False:
     st.error("Username/password is incorrect")
 elif st.session_state['authentication_status'] is None:
