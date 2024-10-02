@@ -11,6 +11,7 @@ import streamlit_authenticator as stauth
 with open("config.yaml") as file:
     config = yaml.load(file, Loader=SafeLoader)
 
+    st.session_state['config'] = config
 # Create auth object
 authenticator = stauth.Authenticate(
     config['credentials'],
@@ -27,21 +28,7 @@ if st.session_state['authentication_status']:
     authenticator.logout("Logout", 'main', key='unique_key')
     st.header(f'Welcome {st.session_state["name"]}')
     
-    # cols = st.columns([10, 10, 10, 3])
-    # with cols[0]:
-    #     resetPassword = st.button("Reset Password")
-    # with cols[1]:
-    #     addUser = st.button("Add User")
-
-    if authentication_status == True:
-            try:
-                if authenticator.reset_password(username, location = 'sidebar'):
-                    st.success('Password modified successfully')
-                    with open('config.yaml', 'w') as file:
-                        yaml.dump(config, file, default_flow_style=False)
-                        # st.write(file.name)
-            except Exception as e:
-                st.error(e)
+    st.session_state['authenticator'] = authenticator
 
     if authentication_status == True and username=="georgei":
             try:
